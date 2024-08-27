@@ -3,8 +3,7 @@
 
 
 
-<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
-<div class="markdown prose w-full break-words dark:prose-invert light">
+
 <p>Creating an ASP.NET Core 8 Web API for an e-commerce project that demonstrates all the design patterns mentioned is quite extensive. Each design pattern will serve a specific purpose in the context of the application, such as managing user accounts, processing orders, interacting with products, etc.</p><p>Let's break down the usage of each pattern in the context of the e-commerce project:</p><h3>Project Overview</h3><p><strong>E-Commerce System</strong>:<br>An online store that allows users to browse products, add them to a cart, place orders, and manage user profiles.</p>
 <h4><strong>Creational Patterns</strong></h4>
 <ol>
@@ -521,7 +520,7 @@ public class OrderShippedState : IOrderState
 ```
 
 <h3>Putting It All Together</h3>
-<div class="markdown prose w-full break-words dark:prose-invert light">
+
 <p>Creating a complete e-commerce Web API using ASP.NET Core 8 that demonstrates all the design patterns is a comprehensive task. To help you with this, I'll provide a more complete example including controllers, <code>Program.cs</code>, view models, <code>ApplicationDbContext</code>, and JWT authentication setup.</p>
 <h3>Project Structure</h3>
 <p>Here is a breakdown of the components we'll include:</p>
@@ -1021,8 +1020,7 @@ app.UseAuthorization();
 <li><strong>Security Enhancements</strong>: Use secure password storage practices (e.g., hashing, salting).</li>
 </ol>
 <p>This skeleton provides a robust starting point to build upon and demonstrate the use of design patterns within an ASP.NET Core 8 Web API project for an e-commerce application.</p>
-</div>
+
 
 <p>This skeleton provides a solid starting point to demonstrate how each design pattern could be implemented in an ASP.NET Core Web API project for an e-commerce application. You can expand on this by implementing the actual business logic, connecting to a real database, handling errors, and more.</p>
-</div>
-</div>
+
