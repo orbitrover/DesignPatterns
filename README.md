@@ -11,6 +11,7 @@ A design pattern is a general repeatable/reusable solution to a commonly occurri
 <li>Builder</li>
 <li>Prototype</li>
 </ul>
+
 # Structural
 <ul dir="auto">
 <li>Adapter</li>
@@ -21,6 +22,7 @@ A design pattern is a general repeatable/reusable solution to a commonly occurri
 <li>Proxy</li>
 <li>Facade</li>
 </ul>
+
 # Behavioral
 <ul dir="auto">
 <li>Chain of Responsibility</li>
