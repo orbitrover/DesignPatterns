@@ -14,22 +14,24 @@ Console.WriteLine("Starting Application");
 //Console.WriteLine("==========================================");
 
 
-CustomIterator.Run();
-Console.WriteLine("==========================================");
-MusicPlaylist.Run();
-Console.WriteLine("==========================================");
-BookshelfService.Run();
-Console.WriteLine("==========================================");
-RadioStationService.Run();
-Console.WriteLine("==========================================");
-TVChannelService.Run();
-Console.WriteLine("==========================================");
-CourseRegistration.Run();
-Console.WriteLine("==========================================");
-SocialMediaFeed.Run();
-Console.WriteLine("==========================================");
-RestaurantMenu.Run();
-Console.WriteLine("==========================================");
+//CustomIterator.Run();
+//Console.WriteLine("==========================================");
+//MusicPlaylist.Run();
+//Console.WriteLine("==========================================");
+//BookshelfService.Run();
+//Console.WriteLine("==========================================");
+//RadioStationService.Run();
+//Console.WriteLine("==========================================");
+//TVChannelService.Run();
+//Console.WriteLine("==========================================");
+//CourseRegistration.Run();
+//Console.WriteLine("==========================================");
+//SocialMediaFeed.Run();
+//Console.WriteLine("==========================================");
+//RestaurantMenu.Run();
+//Console.WriteLine("==========================================");
+
+ProgramRun.Run();
 
 Console.WriteLine("End Application");
 Console.ReadKey();
