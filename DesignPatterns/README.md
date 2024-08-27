@@ -34,35 +34,37 @@
 <h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>
 
 ```charp
-public class LogService
+namespace Core.Services.CreationalPatterns.Singleton
 {
-    private static LogService _instance;
-    private static readonly object _lock = new object();
+	public class LogService
+	{
+		private static LogService _instance;
+		private static readonly object _lock = new object();
 
-    private LogService() { }
+		private LogService() { }
 
-    public static LogService Instance
-    {
-        get
-        {
-            lock (_lock)
-            {
-                if (_instance == null)
-                {
-                    _instance = new LogService();
-                }
-                return _instance;
-            }
-        }
-    }
+		public static LogService Instance
+		{
+			get
+			{
+				lock (_lock)
+				{
+					if (_instance == null)
+					{
+						_instance = new LogService();
+					}
+					return _instance;
+				}
+			}
+		}
 
-    public void Log(string message)
-    {
-        // Log to a file, database, etc.
-        Console.WriteLine(message);
-    }
+		public void Log(string message)
+		{
+			// Log to a file, database, etc.
+			Console.WriteLine(message);
+		}
+	}
 }
-
 ```
 <h4>2. <strong>Factory Method (Payment Processors)</strong></h4>
 
