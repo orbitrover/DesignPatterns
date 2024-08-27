@@ -31,7 +31,7 @@
 </ol>
 <h3>Code Example Structure</h3>
 <p>I will provide a skeleton for each pattern, integrating them into the e-commerce system. Due to the complexity, let's provide a brief code example for each pattern, and you can extend or refine them as needed for your specific requirements.</p>
-<h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>
+<h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>:
 
 ```charp
 namespace Core.Services.CreationalPatterns.Singleton
