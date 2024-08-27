@@ -3,429 +3,1026 @@
 
 
 
-<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]"><div class="markdown prose w-full break-words dark:prose-invert light"><p>Creating an ASP.NET Core 8 Web API for an e-commerce project that demonstrates all the design patterns mentioned is quite extensive. Each design pattern will serve a specific purpose in the context of the application, such as managing user accounts, processing orders, interacting with products, etc.</p><p>Let's break down the usage of each pattern in the context of the e-commerce project:</p><h3>Project Overview</h3><p><strong>E-Commerce System</strong>:<br>An online store that allows users to browse products, add them to a cart, place orders, and manage user profiles.</p><h4><strong>Creational Patterns</strong></h4><ol><li><strong>Singleton</strong>:<br>Used for a logging service to ensure only one instance handles all log messages.</li><li><strong>Factory Method</strong>:<br>Used for creating different types of payment processors (e.g., Credit Card, PayPal, etc.).</li><li><strong>Abstract Factory</strong>:<br>Used to create families of related objects like product variants or order-related objects.</li><li><strong>Builder</strong>:<br>Used for constructing complex objects such as Order or User profiles step by step.</li><li><strong>Prototype</strong>:<br>Used for creating new instances of an existing product by copying its details.</li></ol><h4><strong>Structural Patterns</strong></h4><ol><li><strong>Adapter</strong>:<br>Used to integrate third-party payment gateway APIs that have different interfaces.</li><li><strong>Decorator</strong>:<br>Used to add additional features to the product (e.g., adding gift wrapping, express shipping).</li><li><strong>Facade</strong>:<br>Used to provide a simplified interface to a complex order processing subsystem.</li><li><strong>Composite</strong>:<br>Used to handle categories and subcategories of products as a tree structure.</li><li><strong>Proxy</strong>:<br>Used to provide a placeholder for the actual product data, loading it on demand (lazy loading).</li></ol><h4><strong>Behavioral Patterns</strong></h4><ol><li><strong>Observer</strong>:<br>Used to notify subscribers (e.g., inventory management system, user notifications) whenever an order is placed.</li><li><strong>Strategy</strong>:<br>Used to select different shipping algorithms based on user preferences or geographic location.</li><li><strong>Command</strong>:<br>Used to encapsulate requests such as placing an order or processing a payment as objects.</li><li><strong>Iterator</strong>:<br>Used to iterate over collections of products, orders, etc., without exposing their underlying structure.</li><li><strong>State</strong>:<br>Used to handle the different states of an order (e.g., Created, Paid, Shipped, Delivered).</li></ol><h3>Code Example Structure</h3><p>I will provide a skeleton for each pattern, integrating them into the e-commerce system. Due to the complexity, let's provide a brief code example for each pattern, and you can extend or refine them as needed for your specific requirements.</p><h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">LogService</span>
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>Creating an ASP.NET Core 8 Web API for an e-commerce project that demonstrates all the design patterns mentioned is quite extensive. Each design pattern will serve a specific purpose in the context of the application, such as managing user accounts, processing orders, interacting with products, etc.</p><p>Let's break down the usage of each pattern in the context of the e-commerce project:</p><h3>Project Overview</h3><p><strong>E-Commerce System</strong>:<br>An online store that allows users to browse products, add them to a cart, place orders, and manage user profiles.</p>
+<h4><strong>Creational Patterns</strong></h4>
+<ol>
+<li><strong>Singleton</strong>:<br>Used for a logging service to ensure only one instance handles all log messages.</li>
+<li><strong>Factory Method</strong>:<br>Used for creating different types of payment processors (e.g., Credit Card, PayPal, etc.).</li>
+<li><strong>Abstract Factory</strong>:<br>Used to create families of related objects like product variants or order-related objects.</li>
+<li><strong>Builder</strong>:<br>Used for constructing complex objects such as Order or User profiles step by step.</li>
+<li><strong>Prototype</strong>:<br>Used for creating new instances of an existing product by copying its details.</li>
+</ol>
+<h4><strong>Structural Patterns</strong></h4>
+<ol>
+<li><strong>Adapter</strong>:<br>Used to integrate third-party payment gateway APIs that have different interfaces.</li>
+<li><strong>Decorator</strong>:<br>Used to add additional features to the product (e.g., adding gift wrapping, express shipping).</li>
+<li><strong>Facade</strong>:<br>Used to provide a simplified interface to a complex order processing subsystem.</li>
+<li><strong>Composite</strong>:<br>Used to handle categories and subcategories of products as a tree structure.</li>
+<li><strong>Proxy</strong>:<br>Used to provide a placeholder for the actual product data, loading it on demand (lazy loading).</li>
+</ol>
+<h4><strong>Behavioral Patterns</strong></h4>
+<ol>
+<li><strong>Observer</strong>:<br>Used to notify subscribers (e.g., inventory management system, user notifications) whenever an order is placed.</li>
+<li><strong>Strategy</strong>:<br>Used to select different shipping algorithms based on user preferences or geographic location.</li>
+<li><strong>Command</strong>:<br>Used to encapsulate requests such as placing an order or processing a payment as objects.</li>
+<li><strong>Iterator</strong>:<br>Used to iterate over collections of products, orders, etc., without exposing their underlying structure.</li>
+<li><strong>State</strong>:<br>Used to handle the different states of an order (e.g., Created, Paid, Shipped, Delivered).</li>
+</ol>
+<h3>Code Example Structure</h3>
+<p>I will provide a skeleton for each pattern, integrating them into the e-commerce system. Due to the complexity, let's provide a brief code example for each pattern, and you can extend or refine them as needed for your specific requirements.</p>
+<h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>
+
+``` charp
+public class LogService
 {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> LogService _instance;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> <span class="hljs-built_in">object</span> _lock = <span class="hljs-keyword">new</span> <span class="hljs-built_in">object</span>();
+    private static LogService _instance;
+    private static readonly object _lock = new object();
 
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">LogService</span>()</span> { }
+    private LogService() { }
 
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> LogService Instance
+    public static LogService Instance
     {
-        <span class="hljs-keyword">get</span>
+        get
         {
-            <span class="hljs-keyword">lock</span> (_lock)
+            lock (_lock)
             {
-                <span class="hljs-keyword">if</span> (_instance == <span class="hljs-literal">null</span>)
+                if (_instance == null)
                 {
-                    _instance = <span class="hljs-keyword">new</span> LogService();
+                    _instance = new LogService();
                 }
-                <span class="hljs-keyword">return</span> _instance;
+                return _instance;
             }
         }
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Log</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> message</span>)</span>
+    public void Log(string message)
     {
-        <span class="hljs-comment">// Log to a file, database, etc.</span>
+        // Log to a file, database, etc.
         Console.WriteLine(message);
     }
 }
-</code></div></div></pre><h4>2. <strong>Factory Method (Payment Processors)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PaymentProcessor</span>
+
+```
+<h4>2. <strong>Factory Method (Payment Processors)</strong></h4>
+
+``` charp
+public abstract class PaymentProcessor
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessPayment</span>(<span class="hljs-params"><span class="hljs-built_in">decimal</span> amount</span>)</span>;
+    public abstract void ProcessPayment(decimal amount);
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CreditCardProcessor</span> : <span class="hljs-title">PaymentProcessor</span>
+public class CreditCardProcessor : PaymentProcessor
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessPayment</span>(<span class="hljs-params"><span class="hljs-built_in">decimal</span> amount</span>)</span>
+    public override void ProcessPayment(decimal amount)
     {
-        <span class="hljs-comment">// Implement credit card payment processing</span>
-        Console.WriteLine(<span class="hljs-string">$"Processed credit card payment of <span class="hljs-subst">{amount}</span>"</span>);
+        // Implement credit card payment processing
+        Console.WriteLine($"Processed credit card payment of {amount}");
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PayPalProcessor</span> : <span class="hljs-title">PaymentProcessor</span>
+public class PayPalProcessor : PaymentProcessor
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessPayment</span>(<span class="hljs-params"><span class="hljs-built_in">decimal</span> amount</span>)</span>
+    public override void ProcessPayment(decimal amount)
     {
-        <span class="hljs-comment">// Implement PayPal payment processing</span>
-        Console.WriteLine(<span class="hljs-string">$"Processed PayPal payment of <span class="hljs-subst">{amount}</span>"</span>);
+        // Implement PayPal payment processing
+        Console.WriteLine($"Processed PayPal payment of {amount}");
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PaymentProcessorFactory</span>
+public class PaymentProcessorFactory
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> PaymentProcessor <span class="hljs-title">GetPaymentProcessor</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> type</span>)</span>
+    public static PaymentProcessor GetPaymentProcessor(string type)
     {
-        <span class="hljs-keyword">switch</span> (type)
+        switch (type)
         {
-            <span class="hljs-keyword">case</span> <span class="hljs-string">"CreditCard"</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CreditCardProcessor();
-            <span class="hljs-keyword">case</span> <span class="hljs-string">"PayPal"</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PayPalProcessor();
-            <span class="hljs-literal">default</span>:
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">"Invalid payment processor type"</span>);
+            case "CreditCard":
+                return new CreditCardProcessor();
+            case "PayPal":
+                return new PayPalProcessor();
+            default:
+                throw new ArgumentException("Invalid payment processor type");
         }
     }
 }
-</code></div></div></pre><h4>3. <strong>Abstract Factory (Order-Related Objects)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IOrderFactory</span>
+
+```
+
+<h4>3. <strong>Abstract Factory (Order-Related Objects)</strong></h4>
+
+``` charp
+public interface IOrderFactory
 {
-    <span class="hljs-function">IOrder <span class="hljs-title">CreateOrder</span>()</span>;
-    <span class="hljs-function">IShipping <span class="hljs-title">CreateShipping</span>()</span>;
+    IOrder CreateOrder();
+    IShipping CreateShipping();
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">StandardOrderFactory</span> : <span class="hljs-title">IOrderFactory</span>
+public class StandardOrderFactory : IOrderFactory
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> IOrder <span class="hljs-title">CreateOrder</span>()</span> =&gt; <span class="hljs-keyword">new</span> StandardOrder();
-    <span class="hljs-function"><span class="hljs-keyword">public</span> IShipping <span class="hljs-title">CreateShipping</span>()</span> =&gt; <span class="hljs-keyword">new</span> StandardShipping();
+    public IOrder CreateOrder() => new StandardOrder();
+    public IShipping CreateShipping() => new StandardShipping();
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PremiumOrderFactory</span> : <span class="hljs-title">IOrderFactory</span>
+public class PremiumOrderFactory : IOrderFactory
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> IOrder <span class="hljs-title">CreateOrder</span>()</span> =&gt; <span class="hljs-keyword">new</span> PremiumOrder();
-    <span class="hljs-function"><span class="hljs-keyword">public</span> IShipping <span class="hljs-title">CreateShipping</span>()</span> =&gt; <span class="hljs-keyword">new</span> ExpressShipping();
+    public IOrder CreateOrder() => new PremiumOrder();
+    public IShipping CreateShipping() => new ExpressShipping();
 }
-</code></div></div></pre><h4>4. <strong>Builder Pattern (Complex Object Creation - Order)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderBuilder</span>
-{
-    <span class="hljs-keyword">private</span> Order _order = <span class="hljs-keyword">new</span> Order();
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> OrderBuilder <span class="hljs-title">AddProduct</span>(<span class="hljs-params">Product product</span>)</span>
+```
+
+<h4>4. <strong>Builder Pattern (Complex Object Creation - Order)</strong></h4>
+
+``` charp
+public class OrderBuilder
+{
+    private Order _order = new Order();
+
+    public OrderBuilder AddProduct(Product product)
     {
         _order.Products.Add(product);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        return this;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> OrderBuilder <span class="hljs-title">SetCustomer</span>(<span class="hljs-params">Customer customer</span>)</span>
+    public OrderBuilder SetCustomer(Customer customer)
     {
         _order.Customer = customer;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        return this;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> OrderBuilder <span class="hljs-title">SetShippingAddress</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> address</span>)</span>
+    public OrderBuilder SetShippingAddress(string address)
     {
         _order.ShippingAddress = address;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        return this;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> Order <span class="hljs-title">Build</span>()</span>
+    public Order Build()
     {
-        <span class="hljs-keyword">return</span> _order;
+        return _order;
     }
 }
-</code></div></div></pre><h4>5. <strong>Prototype Pattern (Product Cloning)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProductPrototype</span>
+
+```
+
+<h4>5. <strong>Prototype Pattern (Product Cloning)</strong></h4>
+
+``` charp
+public abstract class ProductPrototype
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> ProductPrototype <span class="hljs-title">Clone</span>()</span>;
+    public abstract ProductPrototype Clone();
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Product</span> : <span class="hljs-title">ProductPrototype</span>
+public class Product : ProductPrototype
 {
-    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
-    <span class="hljs-keyword">public</span> <span class="hljs-built_in">decimal</span> Price { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> ProductPrototype <span class="hljs-title">Clone</span>()</span>
+    public override ProductPrototype Clone()
     {
-        <span class="hljs-keyword">return</span> (ProductPrototype)<span class="hljs-keyword">this</span>.MemberwiseClone();
+        return (ProductPrototype)this.MemberwiseClone();
     }
 }
-</code></div></div></pre><h4>6. <strong>Adapter Pattern (Third-Party Payment Gateway)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IPaymentGateway</span>
+
+```
+
+<h4>6. <strong>Adapter Pattern (Third-Party Payment Gateway)</strong></h4>
+
+``` charp
+public interface IPaymentGateway
 {
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MakePayment</span>(<span class="hljs-params"><span class="hljs-built_in">decimal</span> amount</span>)</span>;
+    void MakePayment(decimal amount);
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ThirdPartyPaymentService</span>
+public class ThirdPartyPaymentService
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Pay</span>(<span class="hljs-params"><span class="hljs-built_in">decimal</span> amount</span>)</span>
+    public void Pay(decimal amount)
     {
-        <span class="hljs-comment">// Payment processing</span>
-        Console.WriteLine(<span class="hljs-string">$"Paid <span class="hljs-subst">{amount}</span> using third-party service"</span>);
+        // Payment processing
+        Console.WriteLine($"Paid {amount} using third-party service");
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PaymentGatewayAdapter</span> : <span class="hljs-title">IPaymentGateway</span>
+public class PaymentGatewayAdapter : IPaymentGateway
 {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> ThirdPartyPaymentService _thirdPartyPaymentService;
+    private readonly ThirdPartyPaymentService _thirdPartyPaymentService;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PaymentGatewayAdapter</span>(<span class="hljs-params">ThirdPartyPaymentService thirdPartyPaymentService</span>)</span>
+    public PaymentGatewayAdapter(ThirdPartyPaymentService thirdPartyPaymentService)
     {
         _thirdPartyPaymentService = thirdPartyPaymentService;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MakePayment</span>(<span class="hljs-params"><span class="hljs-built_in">decimal</span> amount</span>)</span>
+    public void MakePayment(decimal amount)
     {
         _thirdPartyPaymentService.Pay(amount);
     }
 }
-</code></div></div></pre><h4>7. <strong>Decorator Pattern (Additional Product Features)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IProduct</span>
+
+```
+
+<h4>7. <strong>Decorator Pattern (Additional Product Features)</strong></h4>
+
+``` charp
+public interface IProduct
 {
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">GetDescription</span>()</span>;
-    <span class="hljs-function"><span class="hljs-built_in">decimal</span> <span class="hljs-title">GetPrice</span>()</span>;
+    string GetDescription();
+    decimal GetPrice();
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BasicProduct</span> : <span class="hljs-title">IProduct</span>
+public class BasicProduct : IProduct
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetDescription</span>()</span> =&gt; <span class="hljs-string">"Basic Product"</span>;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">decimal</span> <span class="hljs-title">GetPrice</span>()</span> =&gt; <span class="hljs-number">50</span>;
+    public string GetDescription() => "Basic Product";
+    public decimal GetPrice() => 50;
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">GiftWrapDecorator</span> : <span class="hljs-title">IProduct</span>
+public class GiftWrapDecorator : IProduct
 {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> IProduct _product;
+    private readonly IProduct _product;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">GiftWrapDecorator</span>(<span class="hljs-params">IProduct product</span>)</span>
+    public GiftWrapDecorator(IProduct product)
     {
         _product = product;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetDescription</span>()</span> =&gt; _product.GetDescription() + <span class="hljs-string">", Gift Wrapped"</span>;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">decimal</span> <span class="hljs-title">GetPrice</span>()</span> =&gt; _product.GetPrice() + <span class="hljs-number">5</span>;
+    public string GetDescription() => _product.GetDescription() + ", Gift Wrapped";
+    public decimal GetPrice() => _product.GetPrice() + 5;
 }
-</code></div></div></pre><h4>8. <strong>Facade Pattern (Order Processing Subsystem)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderFacade</span>
-{
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> OrderService _orderService;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> PaymentService _paymentService;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> ShippingService _shippingService;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">OrderFacade</span>()</span>
+```
+
+<h4>8. <strong>Facade Pattern (Order Processing Subsystem)</strong></h4>
+
+``` charp
+public class OrderFacade
+{
+    private readonly OrderService _orderService;
+    private readonly PaymentService _paymentService;
+    private readonly ShippingService _shippingService;
+
+    public OrderFacade()
     {
-        _orderService = <span class="hljs-keyword">new</span> OrderService();
-        _paymentService = <span class="hljs-keyword">new</span> PaymentService();
-        _shippingService = <span class="hljs-keyword">new</span> ShippingService();
+        _orderService = new OrderService();
+        _paymentService = new PaymentService();
+        _shippingService = new ShippingService();
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PlaceOrder</span>(<span class="hljs-params">Order order, PaymentDetails paymentDetails</span>)</span>
+    public void PlaceOrder(Order order, PaymentDetails paymentDetails)
     {
         _orderService.ProcessOrder(order);
         _paymentService.ProcessPayment(paymentDetails);
         _shippingService.ShipOrder(order);
     }
 }
-</code></div></div></pre><h4>9. <strong>Composite Pattern (Category Hierarchy)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">ICategoryComponent</span>
+
+```
+
+<h4>9. <strong>Composite Pattern (Category Hierarchy)</strong></h4>
+
+``` charp
+public interface ICategoryComponent
 {
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Display</span>()</span>;
+    void Display();
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Category</span> : <span class="hljs-title">ICategoryComponent</span>
+public class Category : ICategoryComponent
 {
-    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> List&lt;ICategoryComponent&gt; _subCategories = <span class="hljs-keyword">new</span> List&lt;ICategoryComponent&gt;();
+    public string Name { get; set; }
+    private readonly List<ICategoryComponent> _subCategories = new List<ICategoryComponent>();
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Add</span>(<span class="hljs-params">ICategoryComponent category</span>)</span> =&gt; _subCategories.Add(category);
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Remove</span>(<span class="hljs-params">ICategoryComponent category</span>)</span> =&gt; _subCategories.Remove(category);
+    public void Add(ICategoryComponent category) => _subCategories.Add(category);
+    public void Remove(ICategoryComponent category) => _subCategories.Remove(category);
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Display</span>()</span>
+    public void Display()
     {
-        Console.WriteLine(<span class="hljs-string">$"Category: <span class="hljs-subst">{Name}</span>"</span>);
-        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> subCategory <span class="hljs-keyword">in</span> _subCategories)
+        Console.WriteLine($"Category: {Name}");
+        foreach (var subCategory in _subCategories)
         {
             subCategory.Display();
         }
     }
 }
-</code></div></div></pre><h4>10. <strong>Proxy Pattern (Lazy Loading of Product Data)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IProductData</span>
+
+```
+
+<h4>10. <strong>Proxy Pattern (Lazy Loading of Product Data)</strong></h4>
+
+``` charp
+public interface IProductData
 {
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">GetProductDetails</span>()</span>;
+    string GetProductDetails();
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">RealProductData</span> : <span class="hljs-title">IProductData</span>
+public class RealProductData : IProductData
 {
-    <span class="hljs-keyword">private</span> <span class="hljs-built_in">string</span> _productDetails;
+    private string _productDetails;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RealProductData</span>()</span>
+    public RealProductData()
     {
-        <span class="hljs-comment">// Simulate expensive operation</span>
-        _productDetails = <span class="hljs-string">"Detailed product information"</span>;
+        // Simulate expensive operation
+        _productDetails = "Detailed product information";
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetProductDetails</span>()</span> =&gt; _productDetails;
+    public string GetProductDetails() => _productDetails;
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProductDataProxy</span> : <span class="hljs-title">IProductData</span>
+public class ProductDataProxy : IProductData
 {
-    <span class="hljs-keyword">private</span> RealProductData _realProductData;
+    private RealProductData _realProductData;
     
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetProductDetails</span>()</span>
+    public string GetProductDetails()
     {
-        <span class="hljs-keyword">if</span> (_realProductData == <span class="hljs-literal">null</span>)
+        if (_realProductData == null)
         {
-            _realProductData = <span class="hljs-keyword">new</span> RealProductData();
+            _realProductData = new RealProductData();
         }
-        <span class="hljs-keyword">return</span> _realProductData.GetProductDetails();
-    }
-}
-</code></div></div></pre><h4>11. <strong>Observer Pattern (Order Event Notification)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IObserver</span>
-{
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>(<span class="hljs-params">Order order</span>)</span>;
-}
-
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">InventoryObserver</span> : <span class="hljs-title">IObserver</span>
-{
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>(<span class="hljs-params">Order order</span>)</span>
-    {
-        <span class="hljs-comment">// Update inventory</span>
-        Console.WriteLine(<span class="hljs-string">"Inventory updated for order: "</span> + order.Id);
+        return _realProductData.GetProductDetails();
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">EmailNotificationObserver</span> : <span class="hljs-title">IObserver</span>
+```
+
+
+<h4>11. <strong>Observer Pattern (Order Event Notification)</strong></h4>
+
+``` charp
+public interface IObserver
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>(<span class="hljs-params">Order order</span>)</span>
+    void Update(Order order);
+}
+
+public class InventoryObserver : IObserver
+{
+    public void Update(Order order)
     {
-        <span class="hljs-comment">// Send email notification</span>
-        Console.WriteLine(<span class="hljs-string">"Email sent for order: "</span> + order.Id);
+        // Update inventory
+        Console.WriteLine("Inventory updated for order: " + order.Id);
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderSubject</span>
+public class EmailNotificationObserver : IObserver
 {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> List&lt;IObserver&gt; _observers = <span class="hljs-keyword">new</span> List&lt;IObserver&gt;();
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Attach</span>(<span class="hljs-params">IObserver observer</span>)</span> =&gt; _observers.Add(observer);
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Detach</span>(<span class="hljs-params">IObserver observer</span>)</span> =&gt; _observers.Remove(observer);
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Notify</span>(<span class="hljs-params">Order order</span>)</span>
+    public void Update(Order order)
     {
-        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> observer <span class="hljs-keyword">in</span> _observers)
+        // Send email notification
+        Console.WriteLine("Email sent for order: " + order.Id);
+    }
+}
+
+public class OrderSubject
+{
+    private readonly List<IObserver> _observers = new List<IObserver>();
+
+    public void Attach(IObserver observer) => _observers.Add(observer);
+    public void Detach(IObserver observer) => _observers.Remove(observer);
+
+    public void Notify(Order order)
+    {
+        foreach (var observer in _observers)
         {
             observer.Update(order);
         }
     }
 }
-</code></div></div></pre><h4>12. <strong>Strategy Pattern (Shipping Cost Calculation)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IShippingStrategy</span>
+
+```
+
+<h4>12. <strong>Strategy Pattern (Shipping Cost Calculation)</strong></h4>
+
+``` charp
+public interface IShippingStrategy
 {
-    <span class="hljs-function"><span class="hljs-built_in">decimal</span> <span class="hljs-title">CalculateShippingCost</span>(<span class="hljs-params">Order order</span>)</span>;
+    decimal CalculateShippingCost(Order order);
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">StandardShippingStrategy</span> : <span class="hljs-title">IShippingStrategy</span>
+public class StandardShippingStrategy : IShippingStrategy
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">decimal</span> <span class="hljs-title">CalculateShippingCost</span>(<span class="hljs-params">Order order</span>)</span>
+    public decimal CalculateShippingCost(Order order)
     {
-        <span class="hljs-keyword">return</span> <span class="hljs-number">10</span>; <span class="hljs-comment">// Flat rate</span>
+        return 10; // Flat rate
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ExpressShippingStrategy</span> : <span class="hljs-title">IShippingStrategy</span>
+public class ExpressShippingStrategy : IShippingStrategy
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">decimal</span> <span class="hljs-title">CalculateShippingCost</span>(<span class="hljs-params">Order order</span>)</span>
+    public decimal CalculateShippingCost(Order order)
     {
-        <span class="hljs-keyword">return</span> <span class="hljs-number">25</span>; <span class="hljs-comment">// Flat rate for express shipping</span>
-    }
-}
-</code></div></div></pre><h4>13. <strong>Command Pattern (Encapsulate Orders)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">ICommand</span>
-{
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Execute</span>()</span>;
-}
-
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PlaceOrderCommand</span> : <span class="hljs-title">ICommand</span>
-{
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> Order _order;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PlaceOrderCommand</span>(<span class="hljs-params">Order order</span>)</span>
-    {
-        _order = order;
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Execute</span>()</span>
-    {
-        <span class="hljs-comment">// Logic to place the order</span>
-        Console.WriteLine(<span class="hljs-string">$"Order <span class="hljs-subst">{_order.Id}</span> placed."</span>);
+        return 25; // Flat rate for express shipping
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CancelOrderCommand</span> : <span class="hljs-title">ICommand</span>
-{
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> Order _order;
+```
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CancelOrderCommand</span>(<span class="hljs-params">Order order</span>)</span>
+<h4>13. <strong>Command Pattern (Encapsulate Orders)</strong></h4>
+
+``` charp
+public interface ICommand
+{
+    void Execute();
+}
+
+public class PlaceOrderCommand : ICommand
+{
+    private readonly Order _order;
+
+    public PlaceOrderCommand(Order order)
     {
         _order = order;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Execute</span>()</span>
+    public void Execute()
     {
-        <span class="hljs-comment">// Logic to cancel the order</span>
-        Console.WriteLine(<span class="hljs-string">$"Order <span class="hljs-subst">{_order.Id}</span> cancelled."</span>);
+        // Logic to place the order
+        Console.WriteLine($"Order {_order.Id} placed.");
     }
 }
-</code></div></div></pre><h4>14. <strong>Iterator Pattern (Product Collection Iteration)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IIterator</span>
+
+public class CancelOrderCommand : ICommand
 {
-    <span class="hljs-function"><span class="hljs-built_in">bool</span> <span class="hljs-title">HasNext</span>()</span>;
-    <span class="hljs-function">Product <span class="hljs-title">Next</span>()</span>;
+    private readonly Order _order;
+
+    public CancelOrderCommand(Order order)
+    {
+        _order = order;
+    }
+
+    public void Execute()
+    {
+        // Logic to cancel the order
+        Console.WriteLine($"Order {_order.Id} cancelled.");
+    }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProductIterator</span> : <span class="hljs-title">IIterator</span>
-{
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> List&lt;Product&gt; _products;
-    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> _position = <span class="hljs-number">0</span>;
+```
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ProductIterator</span>(<span class="hljs-params">List&lt;Product&gt; products</span>)</span>
+<h4>14. <strong>Iterator Pattern (Product Collection Iteration)</strong></h4>
+
+``` charp
+public interface IIterator
+{
+    bool HasNext();
+    Product Next();
+}
+
+public class ProductIterator : IIterator
+{
+    private readonly List<Product> _products;
+    private int _position = 0;
+
+    public ProductIterator(List<Product> products)
     {
         _products = products;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">HasNext</span>()</span> =&gt; _position &lt; _products.Count;
+    public bool HasNext() => _position < _products.Count;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> Product <span class="hljs-title">Next</span>()</span> =&gt; _products[_position++];
-}
-</code></div></div></pre><h4>15. <strong>State Pattern (Order State Management)</strong></h4><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IOrderState</span>
-{
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Handle</span>(<span class="hljs-params">Order order</span>)</span>;
+    public Product Next() => _products[_position++];
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderCreatedState</span> : <span class="hljs-title">IOrderState</span>
+```
+
+<h4>15. <strong>State Pattern (Order State Management)</strong></h4>
+
+``` charp
+public interface IOrderState
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Handle</span>(<span class="hljs-params">Order order</span>)</span>
+    void Handle(Order order);
+}
+
+public class OrderCreatedState : IOrderState
+{
+    public void Handle(Order order)
     {
-        <span class="hljs-comment">// Handle created state</span>
-        Console.WriteLine(<span class="hljs-string">$"Order <span class="hljs-subst">{order.Id}</span> is in created state."</span>);
-        order.SetState(<span class="hljs-keyword">new</span> OrderPaidState());
+        // Handle created state
+        Console.WriteLine($"Order {order.Id} is in created state.");
+        order.SetState(new OrderPaidState());
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderPaidState</span> : <span class="hljs-title">IOrderState</span>
+public class OrderPaidState : IOrderState
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Handle</span>(<span class="hljs-params">Order order</span>)</span>
+    public void Handle(Order order)
     {
-        <span class="hljs-comment">// Handle paid state</span>
-        Console.WriteLine(<span class="hljs-string">$"Order <span class="hljs-subst">{order.Id}</span> is paid."</span>);
-        order.SetState(<span class="hljs-keyword">new</span> OrderShippedState());
+        // Handle paid state
+        Console.WriteLine($"Order {order.Id} is paid.");
+        order.SetState(new OrderShippedState());
     }
 }
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderShippedState</span> : <span class="hljs-title">IOrderState</span>
+public class OrderShippedState : IOrderState
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Handle</span>(<span class="hljs-params">Order order</span>)</span>
+    public void Handle(Order order)
     {
-        <span class="hljs-comment">// Handle shipped state</span>
-        Console.WriteLine(<span class="hljs-string">$"Order <span class="hljs-subst">{order.Id}</span> is shipped."</span>);
-        order.SetState(<span class="hljs-keyword">new</span> OrderDeliveredState());
+        // Handle shipped state
+        Console.WriteLine($"Order {order.Id} is shipped.");
+        order.SetState(new OrderDeliveredState());
     }
 }
-</code></div></div></pre><h3>Putting It All Together</h3><p>To implement these patterns in an ASP.NET Core 8 Web API project:</p><ol><li><strong>Controllers</strong>: Implement controllers to manage user requests (e.g., <code>OrderController</code>, <code>ProductController</code>).</li><li><strong>Services</strong>: Use services to handle business logic (e.g., <code>OrderService</code>, <code>PaymentService</code>).</li><li><strong>Repositories</strong>: Interact with the database to retrieve and persist data (e.g., <code>ProductRepository</code>, <code>OrderRepository</code>).</li></ol><p><strong>Example: Startup Configuration</strong></p><pre><div class="dark bg-gray-950 rounded-md border-[0.5px] border-token-border-medium"><div class="flex items-center relative text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md"><span>csharp</span><div class="flex items-center"><span class="" data-state="closed"><button class="flex gap-1 items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy code</button></span></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Startup</span>
+
+```
+
+<h3>Putting It All Together</h3>
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>Creating a complete e-commerce Web API using ASP.NET Core 8 that demonstrates all the design patterns is a comprehensive task. To help you with this, I'll provide a more complete example including controllers, <code>Program.cs</code>, view models, <code>ApplicationDbContext</code>, and JWT authentication setup.</p>
+<h3>Project Structure</h3>
+<p>Here is a breakdown of the components we'll include:</p>
+<ol>
+<li><strong><code>Program.cs</code></strong>: Entry point for the ASP.NET Core application.</li>
+<li><strong>Controllers</strong>: To handle HTTP requests and interact with services.</li>
+<li><strong>Models</strong>: Define the data structures (e.g., <code>Product</code>, <code>Order</code>, <code>User</code>).</li>
+<li><strong>ViewModels</strong>: For managing input/output from the API.</li>
+<li><strong>ApplicationDbContext</strong>: Entity Framework Core context for database interaction.</li>
+<li><strong>JWT Authentication</strong>: For securing the API endpoints.</li>
+<li><strong>Services and Patterns Implementation</strong>: Core business logic and design pattern implementations.</li>
+</ol>
+<h3>1. <code>Program.cs</code></h3>
+
+``` charp
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+// Add ApplicationDbContext with In-Memory Database for simplicity
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("ECommerceDb"));
+
+// Configure JWT Authentication
+var key = Encoding.ASCII.GetBytes("YourJWTSecretKey12345!");
+builder.Services.AddAuthentication(options =>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ConfigureServices</span>(<span class="hljs-params">IServiceCollection services</span>)</span>
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        services.AddSingleton&lt;LogService&gt;();
-        services.AddScoped&lt;OrderService&gt;();
-        services.AddScoped&lt;PaymentService&gt;();
-        services.AddScoped&lt;ShippingService&gt;();
-        services.AddControllers();
-        services.AddDbContext&lt;ApplicationDbContext&gt;(options =&gt;
-            options.UseSqlServer(Configuration.GetConnectionString(<span class="hljs-string">"DefaultConnection"</span>)));
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+// Register Services
+builder.Services.AddSingleton<ILogService, LogService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IUserService, UserService>();
+// Register Repository
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+```
+
+<h3>2. <strong>Models</strong></h3>
+<h4><code>Product.cs</code></h4>
+
+``` charp
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public decimal Price { get; set; }
+    public int StockQuantity { get; set; }
+}
+
+```
+
+<h4><code>Order.cs</code></h4>
+
+``` charp
+public class Order
+{
+    public int Id { get; set; }
+    public DateTime OrderDate { get; set; }
+    public string CustomerId { get; set; }
+    public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+    public decimal TotalAmount { get; set; }
+    public OrderStatus Status { get; set; }
+
+    public void SetState(IOrderState state) 
+    {
+        state.Handle(this);
+    }
+}
+
+```
+
+
+<h4><code>OrderItem.cs</code></h4>
+
+``` charp
+public class OrderItem
+{
+    public int Id { get; set; }
+    public int ProductId { get; set; }
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+}
+
+```
+
+<h4><code>User.cs</code></h4>
+
+``` charp
+public class User
+{
+    public string Id { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }  // Note: Store securely with hashing in production
+    public string Role { get; set; }
+}
+
+```
+
+<h3>2a. <strong>Enums</strong></h3>
+<h4><code>OrderStatus.cs</code></h4>
+
+``` charp
+public enum OrderStatus
+{
+    Created,
+    Paid,
+    Shipped,
+    Delivered,
+    Cancelled
+}
+public enum AddressType
+{
+    Home,
+    Office,
+    Other
+}
+
+```
+
+<h3>3. <strong>ViewModels</strong></h3>
+<h4><code>UserViewModel.cs</code></h4>
+
+``` charp
+public class UserViewModel
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
+
+```
+
+<h4><code>OrderViewModel.cs</code></h4>
+
+``` charp
+public class OrderViewModel
+{
+    public List<OrderItemViewModel> Items { get; set; }
+    public decimal TotalAmount { get; set; }
+}
+
+public class OrderItemViewModel
+{
+    public int ProductId { get; set; }
+    public int Quantity { get; set; }
+}
+
+```
+
+<h3>4. <strong>ApplicationDbContext</strong></h3>
+
+``` charp
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IApplicationBuilder app, IWebHostEnvironment env</span>)</span>
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<User> Users { get; set; }
+}
+
+```
+
+<h3>5. <strong>Services</strong></h3>
+<h4><code>OrderService.cs</code></h4>
+
+``` charp
+public class OrderService
+{
+    private readonly ApplicationDbContext _context;
+    private readonly LogService _logService;
+
+    public OrderService(ApplicationDbContext context, LogService logService)
     {
-        <span class="hljs-keyword">if</span> (env.IsDevelopment())
+        _context = context;
+        _logService = logService;
+    }
+
+    public void PlaceOrder(OrderViewModel orderViewModel)
+    {
+        var order = new Order
         {
-            app.UseDeveloperExceptionPage();
+            OrderDate = DateTime.UtcNow,
+            TotalAmount = orderViewModel.TotalAmount,
+            Items = orderViewModel.Items.Select(item => new OrderItem
+            {
+                ProductId = item.ProductId,
+                Quantity = item.Quantity,
+                Price = _context.Products.Find(item.ProductId).Price
+            }).ToList(),
+            Status = OrderStatus.Created
+        };
+
+        _context.Orders.Add(order);
+        _context.SaveChanges();
+
+        // Log the action
+        _logService.Log($"Order {order.Id} placed successfully.");
+    }
+}
+
+```
+
+<h4><code>ProductService.cs</code></h4>
+
+``` charp
+public class ProductService
+{
+    private readonly ApplicationDbContext _context;
+
+    public ProductService(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public List<Product> GetAllProducts()
+    {
+        return _context.Products.ToList();
+    }
+
+    public Product GetProductById(int id)
+    {
+        return _context.Products.Find(id);
+    }
+
+    public void AddProduct(Product product)
+    {
+        _context.Products.Add(product);
+        _context.SaveChanges();
+    }
+
+    public void UpdateProduct(Product product)
+    {
+        var existingProduct = _context.Products.Find(product.Id);
+        if (existingProduct != null)
+        {
+            existingProduct.Name = product.Name;
+            existingProduct.Description = product.Description;
+            existingProduct.Price = product.Price;
+            existingProduct.StockQuantity = product.StockQuantity;
+
+            _context.SaveChanges();
+        }
+    }
+
+    public void DeleteProduct(int id)
+    {
+        var product = _context.Products.Find(id);
+        if (product != null)
+        {
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+        }
+    }
+}
+
+```
+
+<h3>Explanation of <code>ProductService</code></h3>
+<ol>
+<li><strong><code>GetAllProducts</code></strong>: Retrieves all products from the database.</li>
+<li><strong><code>GetProductById</code></strong>: Fetches a specific product by its ID.</li>
+<li><strong><code>AddProduct</code></strong>: Adds a new product to the database.</li>
+<li><strong><code>UpdateProduct</code></strong>: Updates the details of an existing product.</li>
+<li><strong><code>DeleteProduct</code></strong>: Removes a product from the database.</li>
+</ol>
+
+<h3>6. <strong>JWT Authentication</strong></h3>
+<h4><code>TokenService.cs</code></h4>
+
+
+``` charp
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+public class TokenService
+{
+    private const string SecretKey = "YourJWTSecretKey12345!"; // Change this key
+    private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+
+    public string GenerateToken(string username)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Name, username)
+        };
+
+        var credentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.UtcNow.AddDays(1),
+            signingCredentials: credentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+}
+
+```
+
+<h3>7. <strong>Controllers</strong></h3>
+<h4><code>AuthController.cs</code></h4>
+
+``` charp
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AuthController : ControllerBase
+{
+    private readonly ApplicationDbContext _context;
+    private readonly TokenService _tokenService;
+
+    public AuthController(ApplicationDbContext context, TokenService tokenService)
+    {
+        _context = context;
+        _tokenService = tokenService;
+    }
+
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] UserViewModel model)
+    {
+        var user = _context.Users.SingleOrDefault(u => u.Username == model.Username && u.Password == model.Password);
+        if (user == null)
+        {
+            return Unauthorized("Invalid credentials");
         }
 
-        app.UseRouting();
-        app.UseEndpoints(endpoints =&gt;
-        {
-            endpoints.MapControllers();
-        });
+        var token = _tokenService.GenerateToken(user.Username);
+        return Ok(new { Token = token });
     }
 }
-</code></div></div></pre><p>This skeleton provides a solid starting point to demonstrate how each design pattern could be implemented in an ASP.NET Core Web API project for an e-commerce application. You can expand on this by implementing the actual business logic, connecting to a real database, handling errors, and more.</p></div></div>
+
+```
+
+<h4><code>ProductController.cs</code></h4>
+
+``` charp
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductController : ControllerBase
+{
+    private readonly ProductService _productService;
+
+    public ProductController(ProductService productService)
+    {
+        _productService = productService;
+    }
+
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var products = _productService.GetAllProducts();
+        return Ok(products);
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetById(int id)
+    {
+        var product = _productService.GetProductById(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+        return Ok(product);
+    }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult Create([FromBody] Product product)
+    {
+        _productService.AddProduct(product);
+        return Ok();
+    }
+
+    [HttpPut("{id}")]
+    [Authorize]
+    public IActionResult Update(int id, [FromBody] Product product)
+    {
+        if (id != product.Id)
+        {
+            return BadRequest();
+        }
+
+        _productService.UpdateProduct(product);
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public IActionResult Delete(int id)
+    {
+        _productService.DeleteProduct(id);
+        return Ok();
+    }
+}
+
+
+```
+
+<h4><code>OrderController.cs</code></h4>
+
+``` charp
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class OrderController : ControllerBase
+{
+    private readonly OrderService _orderService;
+
+    public OrderController(OrderService orderService)
+    {
+        _orderService = orderService;
+    }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult PlaceOrder([FromBody] OrderViewModel orderViewModel)
+    {
+        _orderService.PlaceOrder(orderViewModel);
+        return Ok();
+    }
+}
+
+```
+
+<h3>8. <strong>Middleware Configuration for JWT in <code>Program.cs</code></strong></h3>
+
+``` charp
+// After app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+
+```
+
+<h3>Complete the Application</h3>
+<p>To fully complete this project:</p>
+<ol>
+<li><strong>Database Initialization</strong>: Populate the <code>ApplicationDbContext</code> with initial data for testing.</li>
+<li><strong>Additional Controllers and Services</strong>: Expand as needed for managing users, payments, etc.</li>
+<li><strong>Error Handling and Validation</strong>: Ensure all input is validated and proper error handling is in place.</li>
+<li><strong>Security Enhancements</strong>: Use secure password storage practices (e.g., hashing, salting).</li>
+</ol>
+<p>This skeleton provides a robust starting point to build upon and demonstrate the use of design patterns within an ASP.NET Core 8 Web API project for an e-commerce application.</p>
+</div>
+
+<p>This skeleton provides a solid starting point to demonstrate how each design pattern could be implemented in an ASP.NET Core Web API project for an e-commerce application. You can expand on this by implementing the actual business logic, connecting to a real database, handling errors, and more.</p>
+</div>
+</div>
