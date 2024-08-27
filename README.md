@@ -3,7 +3,7 @@
 
 A design pattern is a general repeatable/reusable solution to a commonly occurring problem with a given context in software design. It can be treated as a description or template for how to solve a problem that can be used in many different situations.
 
-## Creational
+# Creational
 <ul dir="auto">
 <li>Singleton</li>
 <li>Factory Method/Factory</li>
@@ -11,7 +11,7 @@ A design pattern is a general repeatable/reusable solution to a commonly occurri
 <li>Builder</li>
 <li>Prototype</li>
 </ul>
-## Structural
+# Structural
 <ul dir="auto">
 <li>Adapter</li>
 <li>Bridge</li>
@@ -21,7 +21,7 @@ A design pattern is a general repeatable/reusable solution to a commonly occurri
 <li>Proxy</li>
 <li>Facade</li>
 </ul>
-## Behavioral
+# Behavioral
 <ul dir="auto">
 <li>Chain of Responsibility</li>
 <li>Command</li>
