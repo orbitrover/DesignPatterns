@@ -1,11 +1,10 @@
-﻿using Core.Services.CreationalPatterns.Singleton;
-using Core.Services.CreationalPatterns.AbstractFactory;
+﻿using Core.Data;
 using Core.Data.ViewModel;
-using Core.Data;
-using Core.Data.Enums;
-using Core.Services.Interfaces;
 using Core.Repo.Interface;
 using Core.Services.BehavioralPatterns.Command;
+using Core.Services.CreationalPatterns.AbstractFactory;
+using Core.Services.CreationalPatterns.Singleton;
+using Core.Services.Interfaces;
 
 
 namespace Core.Services.Implementation

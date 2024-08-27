@@ -31,7 +31,7 @@
 </ol>
 <h3>Code Example Structure</h3>
 <p>I will provide a skeleton for each pattern, integrating them into the e-commerce system. Due to the complexity, let's provide a brief code example for each pattern, and you can extend or refine them as needed for your specific requirements.</p>
-<h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>:
+<h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>
 
 ```csharp
 namespace Core.Services.CreationalPatterns.Singleton
@@ -70,456 +70,484 @@ namespace Core.Services.CreationalPatterns.Singleton
 <h4>2. <strong>Factory Method (Payment Processors)</strong></h4>
 
 ```csharp
-public abstract class PaymentProcessor
-{
-    public abstract void ProcessPayment(decimal amount);
-}
+	namespace Core.Services.CreationalPatterns.FactoryMethod
+	{
+		public abstract class PaymentProcessor
+		{
+			public abstract void ProcessPayment(decimal amount);
+		}
 
-public class CreditCardProcessor : PaymentProcessor
-{
-    public override void ProcessPayment(decimal amount)
-    {
-        // Implement credit card payment processing
-        Console.WriteLine($"Processed credit card payment of {amount}");
-    }
-}
+		public class CreditCardProcessor : PaymentProcessor
+		{
+			public override void ProcessPayment(decimal amount)
+			{
+				// Implement credit card payment processing
+				Console.WriteLine($"Processed credit card payment of {amount}");
+			}
+		}
 
-public class PayPalProcessor : PaymentProcessor
-{
-    public override void ProcessPayment(decimal amount)
-    {
-        // Implement PayPal payment processing
-        Console.WriteLine($"Processed PayPal payment of {amount}");
-    }
-}
+		public class PayPalProcessor : PaymentProcessor
+		{
+			public override void ProcessPayment(decimal amount)
+			{
+				// Implement PayPal payment processing
+				Console.WriteLine($"Processed PayPal payment of {amount}");
+			}
+		}
 
-public class PaymentProcessorFactory
-{
-    public static PaymentProcessor GetPaymentProcessor(string type)
-    {
-        switch (type)
-        {
-            case "CreditCard":
-                return new CreditCardProcessor();
-            case "PayPal":
-                return new PayPalProcessor();
-            default:
-                throw new ArgumentException("Invalid payment processor type");
-        }
-    }
-}
-
+		public class PaymentProcessorFactory
+		{
+			public static PaymentProcessor GetPaymentProcessor(string type)
+			{
+				switch (type)
+				{
+					case "CreditCard":
+						return new CreditCardProcessor();
+					case "PayPal":
+						return new PayPalProcessor();
+					default:
+						throw new ArgumentException("Invalid payment processor type");
+				}
+			}
+		}
+	}
 ```
 
 <h4>3. <strong>Abstract Factory (Order-Related Objects)</strong></h4>
 
 ```csharp
-public interface IOrderFactory
-{
-    IOrder CreateOrder();
-    IShipping CreateShipping();
-}
+	namespace Core.Services.CreationalPatterns.AbstractFactory
+	{
+		public interface IOrderFactory
+		{
+			IOrder CreateOrder();
+			IShipping CreateShipping();
+		}
 
-public class StandardOrderFactory : IOrderFactory
-{
-    public IOrder CreateOrder() => new StandardOrder();
-    public IShipping CreateShipping() => new StandardShipping();
-}
+		public class StandardOrderFactory : IOrderFactory
+		{
+			public IOrder CreateOrder() => new StandardOrder();
+			public IShipping CreateShipping() => new StandardShipping();
+		}
 
-public class PremiumOrderFactory : IOrderFactory
-{
-    public IOrder CreateOrder() => new PremiumOrder();
-    public IShipping CreateShipping() => new ExpressShipping();
-}
-
+		public class PremiumOrderFactory : IOrderFactory
+		{
+			public IOrder CreateOrder() => new PremiumOrder();
+			public IShipping CreateShipping() => new ExpressShipping();
+		}
+	}
 ```
 
 <h4>4. <strong>Builder Pattern (Complex Object Creation - Order)</strong></h4>
 
 ```csharp
-public class OrderBuilder
-{
-    private Order _order = new Order();
+	namespace Core.Services.CreationalPatterns.Builder
+	{
+		public class OrderBuilder
+		{
+			private Order _order = new Order();
 
-    public OrderBuilder AddProduct(Product product)
-    {
-        _order.Products.Add(product);
-        return this;
-    }
+			public OrderBuilder AddProduct(Product product)
+			{
+				_order.Products.Add(product);
+				return this;
+			}
 
-    public OrderBuilder SetCustomer(Customer customer)
-    {
-        _order.Customer = customer;
-        return this;
-    }
+			public OrderBuilder SetCustomer(Customer customer)
+			{
+				_order.Customer = customer;
+				return this;
+			}
 
-    public OrderBuilder SetShippingAddress(string address)
-    {
-        _order.ShippingAddress = address;
-        return this;
-    }
+			public OrderBuilder SetShippingAddress(string address)
+			{
+				_order.ShippingAddress = address;
+				return this;
+			}
 
-    public Order Build()
-    {
-        return _order;
-    }
-}
-
+			public Order Build()
+			{
+				return _order;
+			}
+		}
+	}
 ```
 
 <h4>5. <strong>Prototype Pattern (Product Cloning)</strong></h4>
 
 ```csharp
-public abstract class ProductPrototype
-{
-    public abstract ProductPrototype Clone();
-}
+	namespace Core.Services.CreationalPatterns.Prototype
+	{
+		public abstract class ProductPrototype
+		{
+			public abstract ProductPrototype Clone();
+		}
 
-public class Product : ProductPrototype
-{
-    public string Name { get; set; }
-    public decimal Price { get; set; }
+		public class Product : ProductPrototype
+		{
+			public string Name { get; set; }
+			public decimal Price { get; set; }
 
-    public override ProductPrototype Clone()
-    {
-        return (ProductPrototype)this.MemberwiseClone();
-    }
-}
-
+			public override ProductPrototype Clone()
+			{
+				return (ProductPrototype)this.MemberwiseClone();
+			}
+		}
+	}
 ```
 
 <h4>6. <strong>Adapter Pattern (Third-Party Payment Gateway)</strong></h4>
 
 ```csharp
-public interface IPaymentGateway
-{
-    void MakePayment(decimal amount);
-}
+	namespace Core.Services.StructuralPatterns.Adapter
+	{
+		public interface IPaymentGateway
+		{
+			void MakePayment(decimal amount);
+		}
 
-public class ThirdPartyPaymentService
-{
-    public void Pay(decimal amount)
-    {
-        // Payment processing
-        Console.WriteLine($"Paid {amount} using third-party service");
-    }
-}
+		public class ThirdPartyPaymentService
+		{
+			public void Pay(decimal amount)
+			{
+				// Payment processing
+				Console.WriteLine($"Paid {amount} using third-party service");
+			}
+		}
 
-public class PaymentGatewayAdapter : IPaymentGateway
-{
-    private readonly ThirdPartyPaymentService _thirdPartyPaymentService;
+		public class PaymentGatewayAdapter : IPaymentGateway
+		{
+			private readonly ThirdPartyPaymentService _thirdPartyPaymentService;
 
-    public PaymentGatewayAdapter(ThirdPartyPaymentService thirdPartyPaymentService)
-    {
-        _thirdPartyPaymentService = thirdPartyPaymentService;
-    }
+			public PaymentGatewayAdapter(ThirdPartyPaymentService thirdPartyPaymentService)
+			{
+				_thirdPartyPaymentService = thirdPartyPaymentService;
+			}
 
-    public void MakePayment(decimal amount)
-    {
-        _thirdPartyPaymentService.Pay(amount);
-    }
-}
-
+			public void MakePayment(decimal amount)
+			{
+				_thirdPartyPaymentService.Pay(amount);
+			}
+		}
+	}
 ```
 
 <h4>7. <strong>Decorator Pattern (Additional Product Features)</strong></h4>
 
 ```csharp
-public interface IProduct
-{
-    string GetDescription();
-    decimal GetPrice();
-}
+	namespace Core.Services.StructuralPatterns.Decorator
+	{
+		public interface IProduct
+		{
+			string GetDescription();
+			decimal GetPrice();
+		}
 
-public class BasicProduct : IProduct
-{
-    public string GetDescription() => "Basic Product";
-    public decimal GetPrice() => 50;
-}
+		public class BasicProduct : IProduct
+		{
+			public string GetDescription() => "Basic Product";
+			public decimal GetPrice() => 50;
+		}
 
-public class GiftWrapDecorator : IProduct
-{
-    private readonly IProduct _product;
+		public class GiftWrapDecorator : IProduct
+		{
+			private readonly IProduct _product;
 
-    public GiftWrapDecorator(IProduct product)
-    {
-        _product = product;
-    }
+			public GiftWrapDecorator(IProduct product)
+			{
+				_product = product;
+			}
 
-    public string GetDescription() => _product.GetDescription() + ", Gift Wrapped";
-    public decimal GetPrice() => _product.GetPrice() + 5;
-}
-
+			public string GetDescription() => _product.GetDescription() + ", Gift Wrapped";
+			public decimal GetPrice() => _product.GetPrice() + 5;
+		}
+	}
 ```
 
 <h4>8. <strong>Facade Pattern (Order Processing Subsystem)</strong></h4>
 
 ```csharp
-public class OrderFacade
-{
-    private readonly OrderService _orderService;
-    private readonly PaymentService _paymentService;
-    private readonly ShippingService _shippingService;
+	namespace Core.Services.StructuralPatterns.Facade
+	{
+		public class OrderFacade
+		{
+			private readonly OrderService _orderService;
+			private readonly PaymentService _paymentService;
+			private readonly ShippingService _shippingService;
 
-    public OrderFacade()
-    {
-        _orderService = new OrderService();
-        _paymentService = new PaymentService();
-        _shippingService = new ShippingService();
-    }
+			public OrderFacade()
+			{
+				_orderService = new OrderService();
+				_paymentService = new PaymentService();
+				_shippingService = new ShippingService();
+			}
 
-    public void PlaceOrder(Order order, PaymentDetails paymentDetails)
-    {
-        _orderService.ProcessOrder(order);
-        _paymentService.ProcessPayment(paymentDetails);
-        _shippingService.ShipOrder(order);
-    }
-}
-
+			public void PlaceOrder(Order order, PaymentDetails paymentDetails)
+			{
+				_orderService.ProcessOrder(order);
+				_paymentService.ProcessPayment(paymentDetails);
+				_shippingService.ShipOrder(order);
+			}
+		}
+	}
 ```
 
 <h4>9. <strong>Composite Pattern (Category Hierarchy)</strong></h4>
 
 ```csharp
-public interface ICategoryComponent
-{
-    void Display();
-}
+	namespace Core.Services.StructuralPatterns.Composite
+	{
+		public interface ICategoryComponent
+		{
+			void Display();
+		}
 
-public class Category : ICategoryComponent
-{
-    public string Name { get; set; }
-    private readonly List<ICategoryComponent> _subCategories = new List<ICategoryComponent>();
+		public class Category : ICategoryComponent
+		{
+			public string Name { get; set; }
+			private readonly List<ICategoryComponent> _subCategories = new List<ICategoryComponent>();
 
-    public void Add(ICategoryComponent category) => _subCategories.Add(category);
-    public void Remove(ICategoryComponent category) => _subCategories.Remove(category);
-    
-    public void Display()
-    {
-        Console.WriteLine($"Category: {Name}");
-        foreach (var subCategory in _subCategories)
-        {
-            subCategory.Display();
-        }
-    }
-}
-
+			public void Add(ICategoryComponent category) => _subCategories.Add(category);
+			public void Remove(ICategoryComponent category) => _subCategories.Remove(category);
+			
+			public void Display()
+			{
+				Console.WriteLine($"Category: {Name}");
+				foreach (var subCategory in _subCategories)
+				{
+					subCategory.Display();
+				}
+			}
+		}
+	}
 ```
 
 <h4>10. <strong>Proxy Pattern (Lazy Loading of Product Data)</strong></h4>
 
 ```csharp
-public interface IProductData
-{
-    string GetProductDetails();
-}
+	namespace Core.Services.StructuralPatterns.Proxy
+	{
+		public interface IProductData
+		{
+			string GetProductDetails();
+		}
 
-public class RealProductData : IProductData
-{
-    private string _productDetails;
+		public class RealProductData : IProductData
+		{
+			private string _productDetails;
 
-    public RealProductData()
-    {
-        // Simulate expensive operation
-        _productDetails = "Detailed product information";
-    }
+			public RealProductData()
+			{
+				// Simulate expensive operation
+				_productDetails = "Detailed product information";
+			}
 
-    public string GetProductDetails() => _productDetails;
-}
+			public string GetProductDetails() => _productDetails;
+		}
 
-public class ProductDataProxy : IProductData
-{
-    private RealProductData _realProductData;
-    
-    public string GetProductDetails()
-    {
-        if (_realProductData == null)
-        {
-            _realProductData = new RealProductData();
-        }
-        return _realProductData.GetProductDetails();
-    }
-}
-
+		public class ProductDataProxy : IProductData
+		{
+			private RealProductData _realProductData;
+			
+			public string GetProductDetails()
+			{
+				if (_realProductData == null)
+				{
+					_realProductData = new RealProductData();
+				}
+				return _realProductData.GetProductDetails();
+			}
+		}
+	}
 ```
 
 
 <h4>11. <strong>Observer Pattern (Order Event Notification)</strong></h4>
 
 ```csharp
-public interface IObserver
-{
-    void Update(Order order);
-}
+	namespace Core.Services.BehavioralPatterns.Observer
+	{
+		public interface IObserver
+		{
+			void Update(Order order);
+		}
 
-public class InventoryObserver : IObserver
-{
-    public void Update(Order order)
-    {
-        // Update inventory
-        Console.WriteLine("Inventory updated for order: " + order.Id);
-    }
-}
+		public class InventoryObserver : IObserver
+		{
+			public void Update(Order order)
+			{
+				// Update inventory
+				Console.WriteLine("Inventory updated for order: " + order.Id);
+			}
+		}
 
-public class EmailNotificationObserver : IObserver
-{
-    public void Update(Order order)
-    {
-        // Send email notification
-        Console.WriteLine("Email sent for order: " + order.Id);
-    }
-}
+		public class EmailNotificationObserver : IObserver
+		{
+			public void Update(Order order)
+			{
+				// Send email notification
+				Console.WriteLine("Email sent for order: " + order.Id);
+			}
+		}
 
-public class OrderSubject
-{
-    private readonly List<IObserver> _observers = new List<IObserver>();
+		public class OrderSubject
+		{
+			private readonly List<IObserver> _observers = new List<IObserver>();
 
-    public void Attach(IObserver observer) => _observers.Add(observer);
-    public void Detach(IObserver observer) => _observers.Remove(observer);
+			public void Attach(IObserver observer) => _observers.Add(observer);
+			public void Detach(IObserver observer) => _observers.Remove(observer);
 
-    public void Notify(Order order)
-    {
-        foreach (var observer in _observers)
-        {
-            observer.Update(order);
-        }
-    }
-}
-
+			public void Notify(Order order)
+			{
+				foreach (var observer in _observers)
+				{
+					observer.Update(order);
+				}
+			}
+		}
+	}
 ```
 
 <h4>12. <strong>Strategy Pattern (Shipping Cost Calculation)</strong></h4>
 
 ```csharp
-public interface IShippingStrategy
-{
-    decimal CalculateShippingCost(Order order);
-}
+	namespace Core.Services.BehavioralPatterns.Strategy
+	{
+		public interface IShippingStrategy
+		{
+			decimal CalculateShippingCost(Order order);
+		}
 
-public class StandardShippingStrategy : IShippingStrategy
-{
-    public decimal CalculateShippingCost(Order order)
-    {
-        return 10; // Flat rate
-    }
-}
+		public class StandardShippingStrategy : IShippingStrategy
+		{
+			public decimal CalculateShippingCost(Order order)
+			{
+				return 10; // Flat rate
+			}
+		}
 
-public class ExpressShippingStrategy : IShippingStrategy
-{
-    public decimal CalculateShippingCost(Order order)
-    {
-        return 25; // Flat rate for express shipping
-    }
-}
-
+		public class ExpressShippingStrategy : IShippingStrategy
+		{
+			public decimal CalculateShippingCost(Order order)
+			{
+				return 25; // Flat rate for express shipping
+			}
+		}
+	}
 ```
 
 <h4>13. <strong>Command Pattern (Encapsulate Orders)</strong></h4>
 
 ```csharp
-public interface ICommand
-{
-    void Execute();
-}
+	namespace Core.Services.BehavioralPatterns.Command
+	{
+		public interface ICommand
+		{
+			void Execute();
+		}
 
-public class PlaceOrderCommand : ICommand
-{
-    private readonly Order _order;
+		public class PlaceOrderCommand : ICommand
+		{
+			private readonly Order _order;
 
-    public PlaceOrderCommand(Order order)
-    {
-        _order = order;
-    }
+			public PlaceOrderCommand(Order order)
+			{
+				_order = order;
+			}
 
-    public void Execute()
-    {
-        // Logic to place the order
-        Console.WriteLine($"Order {_order.Id} placed.");
-    }
-}
+			public void Execute()
+			{
+				// Logic to place the order
+				Console.WriteLine($"Order {_order.Id} placed.");
+			}
+		}
 
-public class CancelOrderCommand : ICommand
-{
-    private readonly Order _order;
+		public class CancelOrderCommand : ICommand
+		{
+			private readonly Order _order;
 
-    public CancelOrderCommand(Order order)
-    {
-        _order = order;
-    }
+			public CancelOrderCommand(Order order)
+			{
+				_order = order;
+			}
 
-    public void Execute()
-    {
-        // Logic to cancel the order
-        Console.WriteLine($"Order {_order.Id} cancelled.");
-    }
-}
-
+			public void Execute()
+			{
+				// Logic to cancel the order
+				Console.WriteLine($"Order {_order.Id} cancelled.");
+			}
+		}
+	}
 ```
 
 <h4>14. <strong>Iterator Pattern (Product Collection Iteration)</strong></h4>
 
 ```csharp
-public interface IIterator
-{
-    bool HasNext();
-    Product Next();
-}
+	namespace Core.Services.BehavioralPatterns.Iterator
+	{
+		public interface IIterator
+		{
+			bool HasNext();
+			Product Next();
+		}
 
-public class ProductIterator : IIterator
-{
-    private readonly List<Product> _products;
-    private int _position = 0;
+		public class ProductIterator : IIterator
+		{
+			private readonly List<Product> _products;
+			private int _position = 0;
 
-    public ProductIterator(List<Product> products)
-    {
-        _products = products;
-    }
+			public ProductIterator(List<Product> products)
+			{
+				_products = products;
+			}
 
-    public bool HasNext() => _position < _products.Count;
+			public bool HasNext() => _position < _products.Count;
 
-    public Product Next() => _products[_position++];
-}
-
+			public Product Next() => _products[_position++];
+		}
+	}
 ```
 
 <h4>15. <strong>State Pattern (Order State Management)</strong></h4>
 
 ```csharp
-public interface IOrderState
-{
-    void Handle(Order order);
-}
+	namespace Core.Services.BehavioralPatterns.State
+	{
+		public interface IOrderState
+		{
+			void Handle(Order order);
+		}
 
-public class OrderCreatedState : IOrderState
-{
-    public void Handle(Order order)
-    {
-        // Handle created state
-        Console.WriteLine($"Order {order.Id} is in created state.");
-        order.SetState(new OrderPaidState());
-    }
-}
+		public class OrderCreatedState : IOrderState
+		{
+			public void Handle(Order order)
+			{
+				// Handle created state
+				Console.WriteLine($"Order {order.Id} is in created state.");
+				order.SetState(new OrderPaidState());
+			}
+		}
 
-public class OrderPaidState : IOrderState
-{
-    public void Handle(Order order)
-    {
-        // Handle paid state
-        Console.WriteLine($"Order {order.Id} is paid.");
-        order.SetState(new OrderShippedState());
-    }
-}
+		public class OrderPaidState : IOrderState
+		{
+			public void Handle(Order order)
+			{
+				// Handle paid state
+				Console.WriteLine($"Order {order.Id} is paid.");
+				order.SetState(new OrderShippedState());
+			}
+		}
 
-public class OrderShippedState : IOrderState
-{
-    public void Handle(Order order)
-    {
-        // Handle shipped state
-        Console.WriteLine($"Order {order.Id} is shipped.");
-        order.SetState(new OrderDeliveredState());
-    }
-}
-
+		public class OrderShippedState : IOrderState
+		{
+			public void Handle(Order order)
+			{
+				// Handle shipped state
+				Console.WriteLine($"Order {order.Id} is shipped.");
+				order.SetState(new OrderDeliveredState());
+			}
+		}
+	}
 ```
 
 <h3>Putting It All Together</h3>
@@ -539,10 +567,16 @@ public class OrderShippedState : IOrderState
 <h3>1. <code>Program.cs</code></h3>
 
 ```csharp
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Core.Services.CreationalPatterns.Singleton;
+using Core.Services.Implementation;
+using Core.Services.Interfaces;
 using System.Text;
+using Core.Repo.Data;
+using Core.Repo.Interface;
+using Core.Repo.Implementation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -608,13 +642,20 @@ app.Run();
 <h4><code>Product.cs</code></h4>
 
 ```csharp
-public class Product
+using System.ComponentModel.DataAnnotations;
+
+namespace Core.Data
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public decimal Price { get; set; }
-    public int StockQuantity { get; set; }
+    public class Product
+    {
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public int StockQuantity { get; set; }
+        public int LockedQty { get; set; }
+    }
 }
 
 ```
@@ -622,18 +663,26 @@ public class Product
 <h4><code>Order.cs</code></h4>
 
 ```csharp
-public class Order
-{
-    public int Id { get; set; }
-    public DateTime OrderDate { get; set; }
-    public string CustomerId { get; set; }
-    public List<OrderItem> Items { get; set; } = new List<OrderItem>();
-    public decimal TotalAmount { get; set; }
-    public OrderStatus Status { get; set; }
+using Core.Data.Enums;
+using System.ComponentModel.DataAnnotations;
 
-    public void SetState(IOrderState state) 
+namespace Core.Data
+{
+    public class Order
     {
-        state.Handle(this);
+        [Key]
+        public int Id { get; set; }
+        public DateTime OrderDate { get; set; }
+        public string CustomerId { get; set; }
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public decimal TotalAmount { get; set; }
+        public OrderStatus Status { get; set; }
+        public string ShippingAddress { get; set; }
+
+        public void SetState(IOrderState state)
+        {
+            state.Handle(this);
+        }
     }
 }
 
@@ -643,12 +692,89 @@ public class Order
 <h4><code>OrderItem.cs</code></h4>
 
 ```csharp
-public class OrderItem
+using System.ComponentModel.DataAnnotations;
+
+namespace Core.Data
 {
-    public int Id { get; set; }
-    public int ProductId { get; set; }
-    public int Quantity { get; set; }
-    public decimal Price { get; set; }
+    public class OrderItem
+    {
+        [Key]
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public double TaxPercentage { get; set; }
+        public double Cost { get; set; }
+        public decimal Price { get; set; }
+    }
+}
+
+```
+
+<h4><code>ShoppingCart.cs</code></h4>
+
+```csharp
+using System.ComponentModel.DataAnnotations;
+
+namespace Core.Data
+{
+    public class ShoppingCart
+    {
+        [Key]
+        public int CartId { get; set; }
+        public int CustomerId { get; set; }
+        public IEnumerable<CartItem> CartItems { get; set; }
+        public bool IsOrdered { get; set; }
+    }
+}
+
+```
+
+<h4><code>CartItem.cs</code></h4>
+
+```csharp
+using System.ComponentModel.DataAnnotations;
+
+namespace Core.Data
+{
+    public class CartItem
+    {
+        [Key]
+        public int Id { get; set; }
+        public int CartId { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public double TaxPercentage { get; set; }
+        public double Cost { get; set; }
+        public decimal Price { get; set; }
+        public bool IsOrdered { get; set; }
+    }
+}
+
+```
+
+<h4><code>ShippingAddress.cs</code></h4>
+
+```csharp
+using System.ComponentModel.DataAnnotations;
+using Core.Data.Enums;
+
+namespace Core.Data
+{
+    public class ShippingAddress
+    {
+        [Key]
+        public int Id { get; set; }
+        public string CustomerId { get; set; }
+        public string AddressDetails { get; set; }
+        public string PinCode { get; set; }
+        public string Phone { get; set; }
+        public string Country { get; set; }
+        public string State { get; set; }
+        public string City { get; set; }
+        public bool IsDefaultAddress { get; set; }
+        public AddressType addressType { get; set; }
+    }
+    
 }
 
 ```
@@ -656,35 +782,70 @@ public class OrderItem
 <h4><code>User.cs</code></h4>
 
 ```csharp
-public class User
+namespace Core.Data
 {
-    public string Id { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }  // Note: Store securely with hashing in production
-    public string Role { get; set; }
+	public class User
+	{
+		public string Id { get; set; }
+		public string Username { get; set; }
+		public string Password { get; set; }  // Note: Store securely with hashing in production
+		public string Role { get; set; }
+	}
+}
+```
+
+
+<h4><code>PaymentDetails.cs</code></h4>
+
+```csharp
+using System.ComponentModel.DataAnnotations;
+
+namespace Core.Data
+{
+    public class PaymentDetails
+    {
+        [Key]
+        public string Id { get; set; }
+    }
 }
 
+```
+
+<h4><code>ResponseModel.cs</code></h4>
+
+```csharp
+namespace Core.Data
+{
+	public class ResponseModel
+	{
+		public int ResponseCode { get; set; }
+		public string ResponseMessage { get; set; }
+		public string ResponseData { get; set; }
+	}
+}
 ```
 
 <h3>2a. <strong>Enums</strong></h3>
 <h4><code>OrderStatus.cs</code></h4>
 
 ```csharp
-public enum OrderStatus
+namespace Core.Data.Enums
 {
-    Created,
-    Paid,
-    Shipped,
-    Delivered,
-    Cancelled
+	public enum OrderStatus
+	{
+		Created,
+		Paid,
+		Shipped,
+		Delivered,
+		Cancelled
+	}
+	public enum AddressType
+	{
+		Home,
+		Office,
+		Other
+	}
 }
-public enum AddressType
-{
-    Home,
-    Office,
-    Other
-}
-
 ```
 
 <h3>3. <strong>ViewModels</strong></h3>
@@ -702,35 +863,48 @@ public class UserViewModel
 <h4><code>OrderViewModel.cs</code></h4>
 
 ```csharp
-public class OrderViewModel
+namespace Core.Data.ViewModel
 {
-    public List<OrderItemViewModel> Items { get; set; }
-    public decimal TotalAmount { get; set; }
-}
+	public class OrderViewModel
+	{
+		public List<OrderItemViewModel> Items { get; set; }
+		public decimal TotalAmount { get; set; }
+	}
 
-public class OrderItemViewModel
-{
-    public int ProductId { get; set; }
-    public int Quantity { get; set; }
-}
+	public class OrderItemViewModel
+	{
+		public int ProductId { get; set; }
+		public int Quantity { get; set; }
+	}
 
+    public class UserViewModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+}
 ```
 
 <h3>4. <strong>ApplicationDbContext</strong></h3>
 
 ```csharp
+using Core.Data;
 using Microsoft.EntityFrameworkCore;
 
-public class ApplicationDbContext : DbContext
+namespace Core.Repo.Data
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+    public class ApplicationDbContext : DbContext
     {
-    }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
 
-    public DbSet<Product> Products { get; set; }
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<ShippingAddress> ShippingAddress { get; set; }
+    }
 }
 
 ```
@@ -739,38 +913,68 @@ public class ApplicationDbContext : DbContext
 <h4><code>OrderService.cs</code></h4>
 
 ```csharp
-public class OrderService
+using Core.Data;
+using Core.Data.ViewModel;
+
+namespace Core.Services.Interfaces
 {
-    private readonly ApplicationDbContext _context;
-    private readonly LogService _logService;
-
-    public OrderService(ApplicationDbContext context, LogService logService)
+    public interface IOrderService
     {
-        _context = context;
-        _logService = logService;
+        void HandleOrder(Order order);
+        void PlaceOrder(OrderViewModel orderViewModel);
     }
+}
 
-    public void PlaceOrder(OrderViewModel orderViewModel)
+```
+
+```csharp
+using Core.Data;
+using Core.Data.ViewModel;
+using Core.Repo.Interface;
+using Core.Services.BehavioralPatterns.Command;
+using Core.Services.CreationalPatterns.AbstractFactory;
+using Core.Services.CreationalPatterns.Singleton;
+using Core.Services.Interfaces;
+
+
+namespace Core.Services.Implementation
+{
+    public class OrderService : IOrderService
     {
-        var order = new Order
+        private readonly IOrderRepository _repo;
+        private readonly LogService _logService;
+        private readonly IOrderFactory _orderFactory;
+        public OrderService(IOrderRepository repo, LogService logService, IOrderFactory orderFactory)
         {
-            OrderDate = DateTime.UtcNow,
-            TotalAmount = orderViewModel.TotalAmount,
-            Items = orderViewModel.Items.Select(item => new OrderItem
-            {
-                ProductId = item.ProductId,
-                Quantity = item.Quantity,
-                Price = _context.Products.Find(item.ProductId).Price
-            }).ToList(),
-            Status = OrderStatus.Created
-        };
+            _repo = repo;
+            _logService = logService;
+            _orderFactory = orderFactory;
+        }
+        public void HandleOrder(Order order)
+        {
+            var orderProcessor = _orderFactory.CreateOrder();
+            orderProcessor.ProcessOrder(order);  // Process the order using the appropriate order type
 
-        _context.Orders.Add(order);
-        _context.SaveChanges();
-
-        // Log the action
-        _logService.Log($"Order {order.Id} placed successfully.");
+            var shippingProcessor = _orderFactory.CreateShipping();
+            shippingProcessor.ShipOrder(order);  // Ship the order using the appropriate shipping type
+        }
+        public void PlaceOrder(OrderViewModel orderViewModel)
+        {
+            ICommand command = new PlaceOrderCommand(new Order());
+            var id = _repo.PlaceOrder(orderViewModel);
+            // Log the action
+            _logService.Log($"Order {id} placed successfully.");
+        }
+        public void CancelOrder(OrderViewModel orderViewModel)
+        {
+            ICommand command = new CancelOrderCommand(new Order());
+            var id = _repo.PlaceOrder(orderViewModel);
+            // Log the action
+            _logService.Log($"Order {id} placed successfully.");
+        }
     }
+
+
 }
 
 ```
@@ -778,54 +982,63 @@ public class OrderService
 <h4><code>ProductService.cs</code></h4>
 
 ```csharp
-public class ProductService
+using Core.Data;
+
+namespace Core.Services.Interfaces
 {
-    private readonly ApplicationDbContext _context;
-
-    public ProductService(ApplicationDbContext context)
+    public interface IProductService
     {
-        _context = context;
+        List<Product> GetAllProducts();
+        Product GetProductById(int id);
+        void AddProduct(Product product);
+        void UpdateProduct(Product product);
+        void DeleteProduct(int id);
     }
+}
 
-    public List<Product> GetAllProducts()
-    {
-        return _context.Products.ToList();
-    }
+```
 
-    public Product GetProductById(int id)
-    {
-        return _context.Products.Find(id);
-    }
+```csharp
+using Core.Data;
+using Core.Services.Interfaces;
 
-    public void AddProduct(Product product)
+namespace Core.Services.Implementation
+{
+    public class ProductService : IProductService
     {
-        _context.Products.Add(product);
-        _context.SaveChanges();
-    }
+        private readonly IProductService _repo;
 
-    public void UpdateProduct(Product product)
-    {
-        var existingProduct = _context.Products.Find(product.Id);
-        if (existingProduct != null)
+        public ProductService(IProductService repo)
         {
-            existingProduct.Name = product.Name;
-            existingProduct.Description = product.Description;
-            existingProduct.Price = product.Price;
-            existingProduct.StockQuantity = product.StockQuantity;
+            _repo = repo;
+        }
 
-            _context.SaveChanges();
+        public List<Product> GetAllProducts()
+        {
+            return _repo.GetAllProducts();
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _repo.GetProductById(id);
+        }
+
+        public void AddProduct(Product product)
+        {
+            _repo.AddProduct(product);
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            _repo.UpdateProduct(product);
+        }
+
+        public void DeleteProduct(int id)
+        {
+            _repo.DeleteProduct(id);
         }
     }
 
-    public void DeleteProduct(int id)
-    {
-        var product = _context.Products.Find(id);
-        if (product != null)
-        {
-            _context.Products.Remove(product);
-            _context.SaveChanges();
-        }
-    }
 }
 
 ```

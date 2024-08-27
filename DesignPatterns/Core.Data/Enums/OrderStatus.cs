@@ -14,5 +14,10 @@ namespace Core.Data.Enums
         Delivered,
         Cancelled
     }
-
+    public enum AddressType
+    {
+        Home,
+        Office,
+        Other
+    }
 }

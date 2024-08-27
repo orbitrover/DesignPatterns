@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Data.Enums;
+﻿using Core.Data.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.Data
 {
@@ -13,6 +9,7 @@ namespace Core.Data
     }
     public class Order
     {
+        [Key]
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public string CustomerId { get; set; }
