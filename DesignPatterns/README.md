@@ -2,7 +2,10 @@
 
 
 
-
+```bash
+dotnet new sln -n Core.Services
+Create Projects:
+```
 
 <p>Creating an ASP.NET Core 8 Web API for an e-commerce project that demonstrates all the design patterns mentioned is quite extensive. Each design pattern will serve a specific purpose in the context of the application, such as managing user accounts, processing orders, interacting with products, etc.</p><p>Let's break down the usage of each pattern in the context of the e-commerce project:</p><h3>Project Overview</h3><p><strong>E-Commerce System</strong>:<br>An online store that allows users to browse products, add them to a cart, place orders, and manage user profiles.</p>
 <h4><strong>Creational Patterns</strong></h4>
@@ -31,7 +34,7 @@
 </ol>
 <h3>Code Example Structure</h3>
 <p>I will provide a skeleton for each pattern, integrating them into the e-commerce system. Due to the complexity, let's provide a brief code example for each pattern, and you can extend or refine them as needed for your specific requirements.</p>
-<h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>:
+1. Singleton Pattern (Logging Service):
 
 ```charp
 namespace Core.Services.CreationalPatterns.Singleton
