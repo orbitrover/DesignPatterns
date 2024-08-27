@@ -34,7 +34,7 @@
 <p>I will provide a skeleton for each pattern, integrating them into the e-commerce system. Due to the complexity, let's provide a brief code example for each pattern, and you can extend or refine them as needed for your specific requirements.</p>
 <h4>1. <strong>Singleton Pattern (Logging Service)</strong></h4>
 
-``` charp
+```charp
 public class LogService
 {
     private static LogService _instance;
@@ -67,7 +67,7 @@ public class LogService
 ```
 <h4>2. <strong>Factory Method (Payment Processors)</strong></h4>
 
-``` charp
+```charp
 public abstract class PaymentProcessor
 {
     public abstract void ProcessPayment(decimal amount);
@@ -111,7 +111,7 @@ public class PaymentProcessorFactory
 
 <h4>3. <strong>Abstract Factory (Order-Related Objects)</strong></h4>
 
-``` charp
+```charp
 public interface IOrderFactory
 {
     IOrder CreateOrder();
@@ -134,7 +134,7 @@ public class PremiumOrderFactory : IOrderFactory
 
 <h4>4. <strong>Builder Pattern (Complex Object Creation - Order)</strong></h4>
 
-``` charp
+```charp
 public class OrderBuilder
 {
     private Order _order = new Order();
@@ -167,7 +167,7 @@ public class OrderBuilder
 
 <h4>5. <strong>Prototype Pattern (Product Cloning)</strong></h4>
 
-``` charp
+```charp
 public abstract class ProductPrototype
 {
     public abstract ProductPrototype Clone();
@@ -188,7 +188,7 @@ public class Product : ProductPrototype
 
 <h4>6. <strong>Adapter Pattern (Third-Party Payment Gateway)</strong></h4>
 
-``` charp
+```charp
 public interface IPaymentGateway
 {
     void MakePayment(decimal amount);
@@ -222,7 +222,7 @@ public class PaymentGatewayAdapter : IPaymentGateway
 
 <h4>7. <strong>Decorator Pattern (Additional Product Features)</strong></h4>
 
-``` charp
+```charp
 public interface IProduct
 {
     string GetDescription();
@@ -252,7 +252,7 @@ public class GiftWrapDecorator : IProduct
 
 <h4>8. <strong>Facade Pattern (Order Processing Subsystem)</strong></h4>
 
-``` charp
+```charp
 public class OrderFacade
 {
     private readonly OrderService _orderService;
@@ -278,7 +278,7 @@ public class OrderFacade
 
 <h4>9. <strong>Composite Pattern (Category Hierarchy)</strong></h4>
 
-``` charp
+```charp
 public interface ICategoryComponent
 {
     void Display();
@@ -306,7 +306,7 @@ public class Category : ICategoryComponent
 
 <h4>10. <strong>Proxy Pattern (Lazy Loading of Product Data)</strong></h4>
 
-``` charp
+```charp
 public interface IProductData
 {
     string GetProductDetails();
@@ -344,7 +344,7 @@ public class ProductDataProxy : IProductData
 
 <h4>11. <strong>Observer Pattern (Order Event Notification)</strong></h4>
 
-``` charp
+```charp
 public interface IObserver
 {
     void Update(Order order);
@@ -388,7 +388,7 @@ public class OrderSubject
 
 <h4>12. <strong>Strategy Pattern (Shipping Cost Calculation)</strong></h4>
 
-``` charp
+```charp
 public interface IShippingStrategy
 {
     decimal CalculateShippingCost(Order order);
@@ -414,7 +414,7 @@ public class ExpressShippingStrategy : IShippingStrategy
 
 <h4>13. <strong>Command Pattern (Encapsulate Orders)</strong></h4>
 
-``` charp
+```charp
 public interface ICommand
 {
     void Execute();
@@ -456,7 +456,7 @@ public class CancelOrderCommand : ICommand
 
 <h4>14. <strong>Iterator Pattern (Product Collection Iteration)</strong></h4>
 
-``` charp
+```charp
 public interface IIterator
 {
     bool HasNext();
@@ -482,7 +482,7 @@ public class ProductIterator : IIterator
 
 <h4>15. <strong>State Pattern (Order State Management)</strong></h4>
 
-``` charp
+```charp
 public interface IOrderState
 {
     void Handle(Order order);
@@ -536,7 +536,7 @@ public class OrderShippedState : IOrderState
 </ol>
 <h3>1. <code>Program.cs</code></h3>
 
-``` charp
+```charp
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -605,7 +605,7 @@ app.Run();
 <h3>2. <strong>Models</strong></h3>
 <h4><code>Product.cs</code></h4>
 
-``` charp
+```charp
 public class Product
 {
     public int Id { get; set; }
@@ -619,7 +619,7 @@ public class Product
 
 <h4><code>Order.cs</code></h4>
 
-``` charp
+```charp
 public class Order
 {
     public int Id { get; set; }
@@ -640,7 +640,7 @@ public class Order
 
 <h4><code>OrderItem.cs</code></h4>
 
-``` charp
+```charp
 public class OrderItem
 {
     public int Id { get; set; }
@@ -653,7 +653,7 @@ public class OrderItem
 
 <h4><code>User.cs</code></h4>
 
-``` charp
+```charp
 public class User
 {
     public string Id { get; set; }
@@ -667,7 +667,7 @@ public class User
 <h3>2a. <strong>Enums</strong></h3>
 <h4><code>OrderStatus.cs</code></h4>
 
-``` charp
+```charp
 public enum OrderStatus
 {
     Created,
@@ -688,7 +688,7 @@ public enum AddressType
 <h3>3. <strong>ViewModels</strong></h3>
 <h4><code>UserViewModel.cs</code></h4>
 
-``` charp
+```charp
 public class UserViewModel
 {
     public string Username { get; set; }
@@ -699,7 +699,7 @@ public class UserViewModel
 
 <h4><code>OrderViewModel.cs</code></h4>
 
-``` charp
+```charp
 public class OrderViewModel
 {
     public List<OrderItemViewModel> Items { get; set; }
@@ -716,7 +716,7 @@ public class OrderItemViewModel
 
 <h3>4. <strong>ApplicationDbContext</strong></h3>
 
-``` charp
+```charp
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext
@@ -736,7 +736,7 @@ public class ApplicationDbContext : DbContext
 <h3>5. <strong>Services</strong></h3>
 <h4><code>OrderService.cs</code></h4>
 
-``` charp
+```charp
 public class OrderService
 {
     private readonly ApplicationDbContext _context;
@@ -775,7 +775,7 @@ public class OrderService
 
 <h4><code>ProductService.cs</code></h4>
 
-``` charp
+```charp
 public class ProductService
 {
     private readonly ApplicationDbContext _context;
@@ -841,7 +841,7 @@ public class ProductService
 <h4><code>TokenService.cs</code></h4>
 
 
-``` charp
+```charp
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -875,7 +875,7 @@ public class TokenService
 <h3>7. <strong>Controllers</strong></h3>
 <h4><code>AuthController.cs</code></h4>
 
-``` charp
+```charp
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -909,7 +909,7 @@ public class AuthController : ControllerBase
 
 <h4><code>ProductController.cs</code></h4>
 
-``` charp
+```charp
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -977,7 +977,7 @@ public class ProductController : ControllerBase
 
 <h4><code>OrderController.cs</code></h4>
 
-``` charp
+```charp
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -1005,7 +1005,7 @@ public class OrderController : ControllerBase
 
 <h3>8. <strong>Middleware Configuration for JWT in <code>Program.cs</code></strong></h3>
 
-``` charp
+```charp
 // After app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
