@@ -33,6 +33,6 @@
 <li><strong>Iterator</strong>: Provides a way to access the elements of an aggregate object sequentially without exposing its underlying representation.</li>
 <li><strong>State</strong>: Allows an object to alter its behavior when its internal state changes. The object will appear to change its class.</li>
 </ul>
-<p>Each of these patterns has its own use case, advantages, and trade-offs. Understanding when and how to apply them can significantly improve the design and structure of your C# applications. If you want to dive deeper into a specific pattern or see examples in C#, just let me know!</p>
+<p>Each of these patterns has its own use case, advantages, and trade-offs. Understanding when and how to apply them can significantly improve the design and structure of your C# applications.</p>
 </div>
 </div>
