@@ -5,7 +5,7 @@ namespace Core.Services.Interfaces
 {
     public interface IOrderService
     {
-        void HandleOrder(Order order);
+        void HandleOrder(Order order, string paymentType = "CreditCard");
         void PlaceOrder(OrderViewModel orderViewModel);
     }
 }

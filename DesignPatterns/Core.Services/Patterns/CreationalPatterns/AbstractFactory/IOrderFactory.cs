@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Core.Services.CreationalPatterns.AbstractFactory
 {
+    /// <summary>
+    /// Difference between Abstract Factory and Factory Patterns
+    /// 1. Abstract factory pattern adds a layer of abstraction to the factory pattern
+    /// 2. Abstract factory pattern implementation can have multiple factory methods
+    /// 3. Similar products of a factory implementation are grouped in Abstract factory pattern
+    /// 4. Abstract factory pattern uses object composition to decouple application from specific implementations
+    /// 5. Factory Method uses inheritance to decouple applications from specific implementation
+    /// </summary>
     public interface IOrderFactory
     {
         IOrder CreateOrder();

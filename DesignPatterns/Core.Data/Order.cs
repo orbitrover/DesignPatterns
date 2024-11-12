@@ -17,10 +17,22 @@ namespace Core.Data
         public decimal TotalAmount { get; set; }
         public OrderStatus Status { get; set; }
         public string ShippingAddress { get; set; }
-
+        public string BillingAddress { get; set; }
+        public bool IsGift { get; private set; }
+        public string GiftMessage { get; private set; }
         public void SetState(IOrderState state)
         {
             state.Handle(this);
+        }
+        public void CalculateTotal()
+        {
+            TotalAmount = Items.Sum(item => item.Price * item.Quantity);
+        }
+
+        public void SetGiftOption(bool isGift, string giftMessage = "")
+        {
+            IsGift = isGift;
+            GiftMessage = giftMessage;
         }
     }
 }
